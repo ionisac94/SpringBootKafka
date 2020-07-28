@@ -1,19 +1,31 @@
-#Spring Boot with Kafka Example
+# Spring Boot with Kafka Example
 
 This Project covers how to use Spring Boot with Spring Kafka to Publish JSON/String message to a Kafka topic.
 
-#Start Zookeeper
+# Start Zookeeper
 
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-#Start Kafka Server
+# Start Kafka Server
 
 bin/kafka-server-start.sh config/server.properties
 
-#Create Kafka Topic
+# Create Kafka Topic
 
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic KAFKA_TOPIC1
 
-#Publish message via WebService
+# List Kafka Topics
+
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+# Publish message via WebService
 
 http://localhost:8083/test/message
+
+# Useful info
+
+How can I remove the current process/application which is already assigned to a specific port usin CMD?
+1. find who is listening on a specific port
+    netstat -ano | findstr :<PORT>
+2. next, run the following command to kill the process
+    taskkill /PID <PID> /F
