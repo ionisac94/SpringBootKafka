@@ -1,9 +1,12 @@
 package org.example.web;
 
 import lombok.RequiredArgsConstructor;
+import org.example.model.Student;
 import org.example.service.KafkaSender;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +17,11 @@ public class TestController {
 
 	private final KafkaSender kafkaSender;
 
-	@GetMapping("/{message}")
-	public String getText(@PathVariable final String message) {
-		kafkaSender.sendDataToKafka(message);
-		System.out.println("Returned value is: " + message);
-		return message;
-	}
 
+	@PostMapping("/{message}")
+	public ResponseEntity<Object> getText(@RequestBody Student student) {
+		kafkaSender.sendDataToKafka(student);
+		System.out.println("Produced message is: " + student);
+		return new ResponseEntity<>("Data was send to Kafka", HttpStatus.OK);
+	}
 }
