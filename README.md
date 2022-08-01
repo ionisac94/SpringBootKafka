@@ -5,10 +5,12 @@ This Project covers how to use Spring Boot with Spring Kafka to Publish JSON/Str
 # Start Zookeeper
 
 bin/zookeeper-server-start.sh config/zookeeper.properties
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 
 # Start Kafka Server
 
 bin/kafka-server-start.sh config/server.properties
+.\bin\windows\kafka-server-start.bat .\config\server.properties
 
 # Create Kafka Topic
 
@@ -34,3 +36,5 @@ How can I remove the current process/application which is already assigned to a 
     netstat -ano | findstr :PORT_NAME
 2. next, run the following command to kill the process
     taskkill /PID PID_NAME /F
+ 
+# https://www.youtube.com/watch?v=aKDWWICgfA0 & https://www.youtube.com/watch?v=NjHYWEV_E_o
