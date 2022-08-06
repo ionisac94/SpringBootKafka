@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Student;
+import org.example.mapper.StudentMapper;
 import org.example.model.StudentDTO;
 import org.example.repo.StudentRepo;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -14,14 +15,12 @@ public class KafkaReceiver {
 	private final StudentRepo studentRepo;
 
 	@KafkaListener(topics = "${topicName}", groupId = "${kafkaGroupId}")
-	public void extractDataFromKafka(StudentDTO message) {
-		System.out.println("Consumed message is: " + message);
+	public void extractDataFromKafka(StudentDTO studentDTO) {
+		System.out.println("Consumed message is: " + studentDTO);
 
-		Student student = new Student();
+		StudentMapper studentMapper = StudentMapper.STUDENT_MAPPER;
 
-		student.setName(message.getName());
-		student.setAddress(message.getAddress());
-		student.setSalary(message.getSalary());
+		Student student = studentMapper.toStudent(studentDTO);
 
 		studentRepo.save(student);
 
