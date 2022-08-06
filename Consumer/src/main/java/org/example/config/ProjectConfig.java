@@ -2,7 +2,7 @@ package org.example.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.example.model.Student;
+import org.example.model.StudentDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ public class ProjectConfig {
 	private String groupId;
 
 	@Bean
-	public ConsumerFactory<String, Student> consumerFactory() {
+	public ConsumerFactory<String, StudentDTO> consumerFactory() {
 		Map<String, Object> config = new HashMap<>();
 
 		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host + ":" + port);
@@ -37,12 +37,12 @@ public class ProjectConfig {
 		config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-		return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), new JsonDeserializer<>(Student.class));
+		return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), new JsonDeserializer<>(StudentDTO.class));
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Student> kafkaListenerContainerFactory(ConsumerFactory<String, Student> consumerFactory) {
-		ConcurrentKafkaListenerContainerFactory<String, Student> factory = new ConcurrentKafkaListenerContainerFactory();
+	public ConcurrentKafkaListenerContainerFactory<String, StudentDTO> kafkaListenerContainerFactory(ConsumerFactory<String, StudentDTO> consumerFactory) {
+		ConcurrentKafkaListenerContainerFactory<String, StudentDTO> factory = new ConcurrentKafkaListenerContainerFactory();
 		factory.setConsumerFactory(consumerFactory);
 		return factory;
 	}

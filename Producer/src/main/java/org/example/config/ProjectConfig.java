@@ -2,7 +2,7 @@ package org.example.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.model.Student;
+import org.example.model.StudentDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class ProjectConfig {
 	private String port;
 
 	@Bean
-	public ProducerFactory<String, Student> producerFactory() {
+	public ProducerFactory<String, StudentDTO> producerFactory() {
 		Map<String, Object> config = new HashMap<>();
 		config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, host + ":" + port);
 		config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -34,7 +34,7 @@ public class ProjectConfig {
 	}
 
 	@Bean
-	public KafkaTemplate<String, Student> kafkaTemplate(ProducerFactory<String, Student> producerFactory) {
+	public KafkaTemplate<String, StudentDTO> kafkaTemplate(ProducerFactory<String, StudentDTO> producerFactory) {
 		return new KafkaTemplate<>(producerFactory);
 	}
 }

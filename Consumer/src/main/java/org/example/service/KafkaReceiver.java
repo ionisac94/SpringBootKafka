@@ -1,22 +1,23 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.model.Student;
+import org.example.entity.Student;
+import org.example.model.StudentDTO;
 import org.example.repo.StudentRepo;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class KafkaReciver {
+public class KafkaReceiver {
 
 	private final StudentRepo studentRepo;
 
 	@KafkaListener(topics = "${topicName}", groupId = "${kafkaGroupId}")
-	public void extractDataFromKafka(Student message) {
+	public void extractDataFromKafka(StudentDTO message) {
 		System.out.println("Consumed message is: " + message);
 
-		org.example.entity.Student student = new org.example.entity.Student();
+		Student student = new Student();
 
 		student.setName(message.getName());
 		student.setAddress(message.getAddress());
@@ -24,7 +25,7 @@ public class KafkaReciver {
 
 		studentRepo.save(student);
 
-		System.out.println("The message has been saved to DB " + message);
+		System.out.println("The message has been saved to DB " + student);
 
 	}
 }
