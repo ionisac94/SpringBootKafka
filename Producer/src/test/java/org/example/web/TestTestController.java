@@ -24,7 +24,7 @@ public class TestTestController {
     private MockMvc mvc;
 
     @Test
-    public void testPostStudentEndpoint() throws Exception {
+    public void testPostStudentEndpointReturns200StatusCode() throws Exception {
 
         StudentDTO studentDTO = new StudentDTO("ion", "test", 122);
 

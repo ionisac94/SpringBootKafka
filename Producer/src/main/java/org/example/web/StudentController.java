@@ -2,7 +2,7 @@ package org.example.web;
 
 import lombok.RequiredArgsConstructor;
 import org.example.model.StudentDTO;
-import org.example.service.KafkaSender;
+import org.example.service.KafkaSenderStudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class StudentController {
 
-    private final KafkaSender kafkaSender;
+    private final KafkaSenderStudentService kafkaSender;
 
 
-    @PostMapping(value = "/message", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/message", consumes = MediaType.APPLICATION_JSON_VALUE,
+                                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getText(@RequestBody StudentDTO student) {
         kafkaSender.sendDataToKafka(student);
         System.out.println("Produced message is: " + student);

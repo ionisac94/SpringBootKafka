@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class KafkaSender {
+public class KafkaSenderStudentService {
 
 	private final KafkaTemplate<String, StudentDTO> kafkaTemplate;
 
