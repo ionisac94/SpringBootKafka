@@ -32,17 +32,17 @@ pipeline {
             }
         }
 
-        stage('Result') {
-            steps {
-                publishHTML([allowMissing         : false,
-                             alwaysLinkToLastBuild: true,
-                             keepAll              : true,
-                             reportDir            : 'target/site/jacoco/',
-                             reportFiles          : 'index.html',
-                             reportName           : 'Jacoco Coverage Report'
-                ])
-
-            }
+//         stage('Result') {
+//             steps {
+//                 publishHTML([allowMissing         : false,
+//                              alwaysLinkToLastBuild: true,
+//                              keepAll              : true,
+//                              reportDir            : 'target/site/jacoco/',
+//                              reportFiles          : 'index.html',
+//                              reportName           : 'Jacoco Coverage Report'
+//                 ])
+//
+//             }
 
         }
     }
