@@ -16,7 +16,7 @@ pipeline {
         stage('Compile stage') {
             steps {
                 bat 'mvn compile'
-                step([$class: 'JacocoPublisher'])
+//                 step([$class: 'JacocoPublisher'])
             }
         }
 
